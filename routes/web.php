@@ -1,37 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Middleware\CheckMemberStatus;
+use App\Http\Controllers\ProdukController;
+use App\Http\Controllers\LaporanPenjualanController;
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-Route::get('/about', function () {
-    return view('about');
-});
-
-Route::get('/profile/{name?}', function ($name = 'Tamu') {
-    return "Nama: " . $name;
-});
-
-Route::get('/product/{id}', function ($id) {
-    return "ID Produk: " . $id;
-})->whereNumber('id');
-
-Route::get('/admin/dashboard', function () {
-    return "Halaman Dashboard Admin";
-})->name('dashboard');
-
-Route::prefix('member')->middleware(CheckMemberStatus::class)->
-group(function () {
-
-    Route::get('/profile', function () {
-        return "Profil Member";
-    });
-
-    Route::get('/settings', function () {
-        return "Pengaturan Member";
-    });
-
-});
+// Tugas Controller Produk
+Route::get('/produk', [ProdukController::class, 'index']);
+Route::get('/produk/{id}', [ProdukController::class, 'show']);
+Route::get('/laporan', LaporanPenjualanController::class);
